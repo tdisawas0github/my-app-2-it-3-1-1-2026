@@ -7,7 +7,7 @@ export const registerSchema = z.object({
 
   password: z
     .string()
-    .min(12)
+    .min(4)
     .max(72),
 
   confirmPassword: z.string(),
@@ -31,7 +31,7 @@ export const forgotPasswordSchema = z.object({
 export const resetPasswordSchema = z
   .object({
     token: z.string().trim().min(1),
-    password: z.string().min(12).max(72),
+    password: z.string().min(4).max(72),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {

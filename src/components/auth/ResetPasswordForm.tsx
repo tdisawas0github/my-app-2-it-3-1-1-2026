@@ -65,12 +65,12 @@ export default function ResetPasswordForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="password"
-          placeholder="New password (at least 12 characters)"
+          placeholder="New password (at least 4 characters)"
           className="w-full rounded-lg border p-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
-          minLength={12}
+          minLength={4}
           maxLength={72}
           required
           disabled={!token || Boolean(success)}
@@ -82,7 +82,7 @@ export default function ResetPasswordForm() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           autoComplete="new-password"
-          minLength={12}
+          minLength={4}
           maxLength={72}
           required
           disabled={!token || Boolean(success)}

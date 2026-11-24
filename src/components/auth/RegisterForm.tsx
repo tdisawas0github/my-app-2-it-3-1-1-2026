@@ -78,12 +78,12 @@ export default function RegisterForm() {
         />
         <input
           type="password"
-          placeholder="Password (at least 12 characters)"
+          placeholder="Password (at least 4 characters)"
           className="w-full rounded-lg border p-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
-          minLength={12}
+          minLength={4}
           maxLength={72}
           required
         />
@@ -94,7 +94,7 @@ export default function RegisterForm() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           autoComplete="new-password"
-          minLength={12}
+          minLength={4}
           maxLength={72}
           required
         />
