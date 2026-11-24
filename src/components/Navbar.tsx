@@ -1,45 +1,90 @@
+
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const links = [
-  { href: "/", label: "หน้าแรก" },
-  { href: "/about", label: "เกี่ยวกับเรา" },
-  { href: "/contact", label: "ติดต่อเรา" },
-  { href: "/login", label: "เข้าสู่ระบบ" },
-  { href: "/register", label: "สมัคร" },
-];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Contact", href: "/contact" },
+    { name: "Profile", href: "/profile"},
+  ];
 
   return (
-    <header className="sticky top-0 z-10 border-b border-slate-200 bg-white">
-      <nav className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="text-xl font-bold text-blue-700">
-          เรียนรู้ Next.js
+    <nav className="bg-white shadow-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-2xl font-bold text-blue-600"
+        >
+          Teephop Disawas
         </Link>
-        <ul className="flex flex-wrap items-center gap-1">
-          {links.map(({ href, label }) => {
-            const isActive = pathname === href;
-            return (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                >
-                  {label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </header>
+
+        {/* Desktop Menu */}
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-slate-700 hover:text-blue-600"
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          <Link
+            href="/login"
+            className="rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+          >
+            Login
+          </Link>
+        </div>
+
+        {/* Mobile Button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-2xl text-slate-700 md:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="flex flex-col gap-4 border-t px-5 py-5 md:hidden"
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-slate-700 hover:text-blue-600"
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          <Link
+            href="/login"
+            onClick={() => setMenuOpen(false)}
+            className="rounded-lg bg-blue-600 px-5 py-2 text-center text-white"
+          >
+            Login
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 }
