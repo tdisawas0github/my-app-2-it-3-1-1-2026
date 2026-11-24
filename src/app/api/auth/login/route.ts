@@ -4,7 +4,6 @@ import User from "@/models/User";
 import { loginSchema } from "@/lib/validation";
 import { verifyPassword } from "@/lib/password";
 import { createSession } from "@/lib/session";
-export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   try {

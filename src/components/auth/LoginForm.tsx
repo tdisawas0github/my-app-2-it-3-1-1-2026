@@ -76,10 +76,10 @@ export default function LoginForm() {
       </form>
 
       <div className="mt-5 flex justify-between text-sm">
-        <Link href="/register" className="text-blue-600">
+        <Link href="/auth/register" className="text-blue-600">
           Register
         </Link>
-        <Link href="/forgot-password" className="text-blue-600">
+        <Link href="/auth/forgot-password" className="text-blue-600">
           Forgot Password?
         </Link>
       </div>

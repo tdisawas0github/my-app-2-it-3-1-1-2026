@@ -1,12 +1,9 @@
-export default function AboutPage() {
+import RegisterForm from "@/components/auth/RegisterForm";
+
+export default function RegisterPage() {
   return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold">
-        สมัคร
-      </h1>
-      <p className="mt-4">
-        เว็บไซต์นี้พัฒนาด้วย Next.js
-      </p>
+    <main className="min-h-screen bg-slate-100 p-4">
+      <RegisterForm />
     </main>
   );
 }

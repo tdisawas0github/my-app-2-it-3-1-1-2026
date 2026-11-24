@@ -40,7 +40,7 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="/login"
+            href="/auth/login"
             className="rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
           >
             Login
@@ -77,7 +77,7 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="/login"
+            href="/auth/login"
             onClick={() => setMenuOpen(false)}
             className="rounded-lg bg-blue-600 px-5 py-2 text-center text-white"
           >

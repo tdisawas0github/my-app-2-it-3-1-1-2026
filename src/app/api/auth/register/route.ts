@@ -3,7 +3,6 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import { registerSchema } from "@/lib/validation";
 import { hashPassword } from "@/lib/password";
-export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   try {
