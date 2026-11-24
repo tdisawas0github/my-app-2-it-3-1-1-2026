@@ -1,42 +1,55 @@
-"use client";
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Suspense } from "react";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/session";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function DashboardPage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  return (
+    <main className="min-h-screen bg-slate-100 p-8">
+      <div className="mx-auto max-w-5xl rounded-xl bg-white p-8 shadow">
+        <h1 className="text-3xl font-bold">
+          Dashboard
+        </h1>
+        <Suspense fallback={<DashboardDetailsSkeleton />}>
+          <DashboardDetails />
+        </Suspense>
+      </div>
+    </main>
+  );
+}
 
-  async function handleLogout() {
-    setLoading(true);
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.replace("/auth/login");
-      router.refresh();
-    } finally {
-      setLoading(false);
-    }
+async function DashboardDetails() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/login");
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 p-8">
-      <div className="mx-auto max-w-2xl rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="mt-4 text-slate-600">
-          You are logged in. Visit your{" "}
-          <Link href="/profile" className="text-blue-600">
-            profile
-          </Link>
-          .
-        </p>
-        <button
-          onClick={handleLogout}
-          disabled={loading}
-          className="mt-6 rounded-lg bg-blue-600 px-5 py-2 text-white disabled:opacity-50"
-        >
-          {loading ? "Logging out..." : "Logout"}
-        </button>
+    <>
+      <p className="mt-4">
+        Welcome, {user.name}
+      </p>
+      <p className="mt-2 text-slate-500">
+        Email: {user.email}
+      </p>
+      <p className="mt-2">
+        Role: {user.role}
+      </p>
+      <div className="mt-6">
+        <LogoutButton />
       </div>
-    </main>
+    </>
+  );
+}
+
+function DashboardDetailsSkeleton() {
+  return (
+    <div className="mt-4 space-y-3" aria-hidden>
+      <div className="h-5 w-56 animate-pulse rounded bg-slate-200" />
+      <div className="h-4 w-64 animate-pulse rounded bg-slate-200" />
+      <div className="h-4 w-40 animate-pulse rounded bg-slate-200" />
+      <div className="mt-6 h-10 w-28 animate-pulse rounded bg-slate-200" />
+    </div>
   );
 }

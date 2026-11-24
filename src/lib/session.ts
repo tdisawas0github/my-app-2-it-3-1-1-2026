@@ -1,6 +1,7 @@
 import "server-only";
 import { randomBytes, createHash } from "node:crypto";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Session from "@/models/Session";
 import User from "@/models/User";
@@ -39,6 +40,7 @@ export async function createSession(userId: string) {
 
 // Get Current User
 export async function getCurrentUser() {
+  await connection();
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
